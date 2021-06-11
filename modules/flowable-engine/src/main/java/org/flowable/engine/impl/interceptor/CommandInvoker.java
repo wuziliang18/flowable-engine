@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 真正执行逻辑的  只能作为最终节点执行
  * @author Joram Barrez
  */
 public class CommandInvoker extends AbstractCommandInterceptor {

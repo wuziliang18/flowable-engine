@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 输出日志的拦截器
  * @author Tom Baeyens
  */
 public class LogInterceptor extends AbstractCommandInterceptor {

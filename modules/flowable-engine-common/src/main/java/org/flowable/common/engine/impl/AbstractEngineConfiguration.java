@@ -183,16 +183,17 @@ public abstract class AbstractEngineConfiguration {
     protected String xmlEncoding = "UTF-8";
 
     // COMMAND EXECUTORS ///////////////////////////////////////////////
-
+    //命令执行器
     protected CommandExecutor commandExecutor;
     protected Collection<? extends CommandInterceptor> defaultCommandInterceptors;
     protected CommandConfig defaultCommandConfig;
     protected CommandConfig schemaCommandConfig;
     protected CommandContextFactory commandContextFactory;
+    //真正推动流程节点进行流转的
     protected CommandInterceptor commandInvoker;
 
     protected AgendaOperationRunner agendaOperationRunner = (commandContext, runnable) -> runnable.run();
-
+    //自定义的拦截器列表 应该需要引擎在init前加入
     protected List<CommandInterceptor> customPreCommandInterceptors;
     protected List<CommandInterceptor> customPostCommandInterceptors;
     protected List<CommandInterceptor> commandInterceptors;
@@ -571,7 +572,7 @@ public abstract class AbstractEngineConfiguration {
         initCommandExecutor();
     }
 
-
+    
     public void initDefaultCommandConfig() {
         if (defaultCommandConfig == null) {
             defaultCommandConfig = new CommandConfig();
@@ -589,21 +590,29 @@ public abstract class AbstractEngineConfiguration {
             commandInvoker = new DefaultCommandInvoker();
         }
     }
-
+    /**
+     * 初始化拦截器链
+     */
     public void initCommandInterceptors() {
         if (commandInterceptors == null) {
             commandInterceptors = new ArrayList<>();
+            //加入自定义的
             if (customPreCommandInterceptors != null) {
                 commandInterceptors.addAll(customPreCommandInterceptors);
             }
+            //加入默认的
             commandInterceptors.addAll(getDefaultCommandInterceptors());
             if (customPostCommandInterceptors != null) {
                 commandInterceptors.addAll(customPostCommandInterceptors);
             }
+            //执行的 必须放到最后
             commandInterceptors.add(commandInvoker);
         }
     }
-
+    /**
+     * 默认的拦截器列表
+     * @return
+     */
     public Collection<? extends CommandInterceptor> getDefaultCommandInterceptors() {
         if (defaultCommandInterceptors == null) {
             List<CommandInterceptor> interceptors = new ArrayList<>();
@@ -648,7 +657,7 @@ public abstract class AbstractEngineConfiguration {
     public List<CommandInterceptor> getAdditionalDefaultCommandInterceptors() {
         return null;
     }
-
+    
     public void initCommandExecutor() {
         if (commandExecutor == null) {
             CommandInterceptor first = initInterceptorChain(commandInterceptors);

@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * 带有日志输出的
  * @author Joram Barrez
  */
 public class LoggingExecutionTreeCommandInvoker extends CommandInvoker {

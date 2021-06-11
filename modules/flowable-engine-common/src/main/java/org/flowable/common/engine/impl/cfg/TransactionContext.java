@@ -14,6 +14,7 @@ package org.flowable.common.engine.impl.cfg;
 
 /**
  * @author Tom Baeyens
+ * 事务管理上下文
  */
 public interface TransactionContext {
 

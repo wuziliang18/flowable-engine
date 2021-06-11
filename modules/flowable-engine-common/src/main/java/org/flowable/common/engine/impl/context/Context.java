@@ -23,9 +23,10 @@ import org.flowable.common.engine.impl.transaction.TransactionContextHolder;
  * @author Tom Baeyens
  * @author Daniel Meyer
  * @author Joram Barrez
+ * 管理CommandContext和TransactionContext
  */
 public class Context {
-
+    //一个线程中可能会执行多次命令 一个命令内也可以去执行其他命令所以用栈
     protected static ThreadLocal<Stack<CommandContext>> commandContextThreadLocal = new ThreadLocal<>();
 
     public static CommandContext getCommandContext() {
@@ -35,11 +36,16 @@ public class Context {
         }
         return stack.peek();
     }
-
+    /**
+     * 每次使用的时候要push进去 如果共享的且在一个命令中调用另一个命令 会出现 a->a->b的情况 b是出现异常的情况 
+     * @param commandContext
+     */
     public static void setCommandContext(CommandContext commandContext) {
         getStack(commandContextThreadLocal).push(commandContext);
     }
-
+    /**
+     * 使用完后pop 
+     */
     public static void removeCommandContext() {
         getStack(commandContextThreadLocal).pop();
     }

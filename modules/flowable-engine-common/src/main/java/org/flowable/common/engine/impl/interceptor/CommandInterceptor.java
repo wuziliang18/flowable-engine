@@ -14,6 +14,7 @@
 package org.flowable.common.engine.impl.interceptor;
 
 /**
+ * 利用职责链模式
  * @author Tom Baeyens
  */
 public interface CommandInterceptor {

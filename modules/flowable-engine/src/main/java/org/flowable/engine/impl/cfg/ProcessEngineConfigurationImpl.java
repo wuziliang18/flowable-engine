@@ -1130,7 +1130,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
 
     // command executors
     // ////////////////////////////////////////////////////////
-
+    /**
+     * 初始化命令执行器
+     */
     @Override
     public void initCommandExecutors() {
         initDefaultCommandConfig();
@@ -1139,7 +1141,9 @@ public abstract class ProcessEngineConfigurationImpl extends ProcessEngineConfig
         initCommandInterceptors();
         initCommandExecutor();
     }
-
+    /**
+     * 初始化命令执行器
+     */
     @Override
     public void initCommandInvoker() {
         if (commandInvoker == null) {

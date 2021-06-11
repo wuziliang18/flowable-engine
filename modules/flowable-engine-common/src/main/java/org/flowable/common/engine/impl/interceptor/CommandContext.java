@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Tom Baeyens
  * @author Agim Emruli
  * @author Joram Barrez
+ * 每个command都在一个独立的commandContext中执行 避免线程冲突
  */
 public class CommandContext {
     

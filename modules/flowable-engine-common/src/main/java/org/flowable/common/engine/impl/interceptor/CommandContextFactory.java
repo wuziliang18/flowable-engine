@@ -18,6 +18,7 @@ import java.util.Map;
 /**
  * @author Tom Baeyens
  * @author Joram 
+ * CommandContext的生成工厂 
  */
 public class CommandContextFactory {
     
@@ -25,6 +26,7 @@ public class CommandContextFactory {
 
     public CommandContext createCommandContext(Command<?> cmd) {
         CommandContext commandContext = new CommandContext(cmd);
+        //生成的时候会包装sessionFactories
         commandContext.setSessionFactories(sessionFactories);
         return commandContext;
     }
