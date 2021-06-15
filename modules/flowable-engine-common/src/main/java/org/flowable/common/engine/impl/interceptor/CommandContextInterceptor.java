@@ -62,7 +62,7 @@ public class CommandContextInterceptor extends AbstractCommandInterceptor {
         // We need to check the exception, because the transaction can be in a
         // rollback state, and some other command is being fired to compensate (eg. decrementing job retries)
         //可以在一个Command的执行过程中，调用另外一个Command，所以会出现是否需要复用
-        //出现异常的时候不在复用 选择事务提交回滚之类 为了不影响其他命令的执行
+        //有异常的时候不在复用 不在和其他命令同一事务 用于异常后补偿之类
         if (!config.isContextReusePossible() || commandContext == null || commandContext.getException() != null) {
             commandContext = commandContextFactory.createCommandContext(command);
             commandContext.setEngineConfigurations(engineConfigurations);
